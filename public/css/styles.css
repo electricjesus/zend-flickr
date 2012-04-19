@@ -1,0 +1,7 @@
+html,body {text-align:center;font-family:'HelveticaNeueLTStd67MdCn', Arial, sans-serif}
+div#container{text-align:left;width:960px;margin:auto;max-width:960px}
+h1,h2,h3,h4{;font-weight:400}
+img {border:0}
+div.flickr-image img{width:172px}
+div.flickr-image{display:inline-block;zoom:1;*display:inline;height:auto;width:172px}
+div.flickr-image{margin:10px}
