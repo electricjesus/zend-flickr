@@ -1,23 +1,34 @@
-<div class="index flickr-images">
-	<div class="flickr-image">
-		<img src="/images/test.jpg" alt="test" />
-	</div><div class="flickr-image">
-		<img src="/images/test.jpg" alt="test" />
-	</div><div class="flickr-image">
-		<img src="/images/test.jpg" alt="test" />
-	</div><div class="flickr-image">
-		<img src="/images/test.jpg" alt="test" />
-	</div><div class="flickr-image">
-		<img src="/images/test.jpg" alt="test" />
-	</div><div class="flickr-image">
-		<img src="/images/test.jpg" alt="test" />
-	</div><div class="flickr-image">
-		<img src="/images/test.jpg" alt="test" />
-	</div><div class="flickr-image">
-		<img src="/images/test.jpg" alt="test" />
-	</div><div class="flickr-image">
-		<img src="/images/test.jpg" alt="test" />
-	</div><div class="flickr-image">
-		<img src="/images/test.jpg" alt="test" />
-	</div>
+<?php $result = $this->result; ?>
+<?php foreach($result as $photos): ?>
+<div class="content-tier pagination">
+	<?php $current_page = $photos['page'] ?>
+	<?php $pageshow_after_limit = 5; ?>
+	<?php $pageshow_before_limit = 5; ?>
+	<div class="pagination-link first"><a href="?page=1">First</a></div>
+	<?php if($current_page > 2): ?>
+		<?php for( $i = $current_page - $pageshow_before_limit; $i < $current_page; $i++): ?>
+			<?php if($i < 1) continue; ?>
+			<div class="pagination-link"><a href="?page=<?= $i ?>"><?= $i ?></a></div>
+		<?php endfor; ?>
+	<?php endif; ?>
+	<div class="pagination-link"><?= $photos['page'] ?></div>
+	<?php if($current_page < (int)$photos['pages']): ?>
+		<?php for( $i = $current_page+1; $i < ($current_page + $pageshow_after_limit); $i++): ?>
+			<div class="pagination-link"><a href="?page=<?= $i ?>"><?= $i ?></a></div>
+		<?php endfor; ?>
+	<?php endif; ?>
+	<div class="pagination-link last"><a href="?page=<?= $photos['pages'] ?>">Last</a></div>
 </div>
+<div class="content-tier flickr-images">
+	<?php foreach($photos as $photo): ?>
+		<?php $photoUrl = sprintf('http://farm%s.static.flickr.com/%s/%s_%s_t.jpg', $photo['farm'], $photo['server'], $photo['id'], $photo['secret']); ?>
+		<?php $pageUrl = sprintf('http://www.flickr.com/photos/%s/%s', $photo['owner'], $photo['id']); ?>
+		<?php $photoTitle = $photo['title']; ?>
+		<div class="flickr-image">
+			<a href="<?= $pageUrl; ?>" title="<?= $photoTitle ?>">
+				<img src="<?= $photoUrl ?>" alt="<?= $photoTitle ?>" />
+			</a>
+		</div>
+	<?php endforeach; ?>
+</div>
+<?php endforeach; ?>

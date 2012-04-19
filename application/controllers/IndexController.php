@@ -10,7 +10,10 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
+		$page = $this->getRequest()->getParam('page');
+		$flickrApp = new Application_Model_Flickr();
+		$view = Zend_Layout::getMvcInstance()->getView();
+		$view->result = $flickrApp->setPageNumber($page)->start()->getResponse();
     }
 
 
